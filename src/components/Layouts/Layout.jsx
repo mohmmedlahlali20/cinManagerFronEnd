@@ -1,7 +1,7 @@
 import SideBar from "./SideBar.jsx";
 import {Outlet} from "react-router-dom";
 import Footer from "./Footer.jsx";
-import {useState} from "react";
+import { useState} from "react";
 
 function Layout() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -9,6 +9,7 @@ function Layout() {
     const handleSearch = (term) => {
         setSearchTerm(term);
     };
+
     return (
         <div className="flex bg-gray-50 min-h-screen">
             <SideBar onSearch={handleSearch}/>
@@ -19,7 +20,6 @@ function Layout() {
                 <Footer/>
             </div>
         </div>
-
     );
 }
 

@@ -1,8 +1,17 @@
 import { useState } from 'react';
-
+import Cookies from 'js-cookie';
+import {useNavigate} from "react-router-dom";
+// eslint-disable-next-line react/prop-types
 function SideBar({ onSearch }) {
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
+        Cookies.remove('token');
+        navigate('/login');
+    };
+
 
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
@@ -52,6 +61,23 @@ function SideBar({ onSearch }) {
                     </div>
                     <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
                         <span className="ml-2">Dashboard</span>
+                    </li>
+
+                    <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
+                        <span className="ml-2">Movies</span>
+                    </li>
+
+                    <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
+                        <span className="ml-2">Actors</span>
+                    </li>
+
+                    <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
+                        <button
+                            className="w-full text-white font-bold py-2 px-4 rounded-md"
+                            onClick={handleLogout}
+                        >
+                            Logout
+                        </button>
                     </li>
                 </ul>
             </div>

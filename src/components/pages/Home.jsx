@@ -1,9 +1,14 @@
-import { useOutletContext } from 'react-router-dom';
-import { useState } from 'react';
+import { useOutletContext} from 'react-router-dom';
+import { useState  } from 'react';
 import { Button } from '../UI/index.jsx';
+
 
 function Home() {
     const { searchTerm = '' } = useOutletContext();
+
+
+
+
 
     const allMovies = [
         {
@@ -32,6 +37,8 @@ function Home() {
         movie.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+
+
     return (
         <div className="p-6">
             <h2 className="text-2xl font-bold mb-4 text-center">Films en Vedette</h2>
@@ -46,7 +53,7 @@ function Home() {
                             <div className="p-4">
                                 <h3 className="text-xl font-semibold">{movie.title}</h3>
                                 <p className="text-gray-600">{movie.description}</p>
-                                <Button className="mt-2 bg-blue-600 text-white py-2 px-4 rounded">
+                                <Button className="mt-2 bg-teal-600 text-white py-2 px-4 rounded">
                                     Voir Détails
                                 </Button>
                             </div>
