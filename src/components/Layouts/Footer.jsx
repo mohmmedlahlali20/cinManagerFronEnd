@@ -1,14 +1,7 @@
 function Footer() {
     return (
-        <footer className="bg-gray-900 text-white p-4">
-            <div className="container mx-auto text-center">
-                <p className="text-sm">
-                    © 2024 Cinema App. All rights reserved.
-                </p>
-                <p className="text-xs mt-2">
-                    Designed by YourName | Powered by React & Tailwind CSS
-                </p>
-            </div>
+        <footer className="bg-teal-600 text-white p-4 text-center">
+            &copy; {new Date().getFullYear()} Mon Cinéma. Tous droits réservés.
         </footer>
     );
 }
