@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import Cookies from 'js-cookie';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {AddMovies} from "../movies/index.jsx";
 
 
 
-function SideBar({ onSearch }) {
+function SideBar() {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate()
 
@@ -17,13 +18,6 @@ function SideBar({ onSearch }) {
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
     };
-
-    const handleSearchChange = (e) => {
-        const term = e.target.value;
-        setSearchTerm(term);
-        onSearch(term);
-    };
-
     return (
         <>
             <button
@@ -46,7 +40,7 @@ function SideBar({ onSearch }) {
                 <ul className="space-y-4 px-2">
 
                     <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
-                        <span className="ml-2">Dashboard</span>
+                        <Link to={AddMovies}/>
                     </li>
 
                     <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">

@@ -12,6 +12,10 @@ import {
     ForgotPassword
 } from "../auth/index.jsx";
 
+import {
+    AddMovies
+} from "../movies/index.jsx";
+
 import Layout from "../Layouts/Layout.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 
@@ -21,12 +25,16 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/home",
-                element: (
-                    <ProtectedRoute element={Home} />
-                ),
+                element:<ProtectedRoute element={Home} />
+
             },
+            {
+                path: "/add-movies",
+                element: <ProtectedRoute element={AddMovies}  />,
+            }
         ],
     },
+
     {
         path: "/cinema",
         element: <Cinema />,
