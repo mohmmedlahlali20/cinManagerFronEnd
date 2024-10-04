@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import Cookies from 'js-cookie';
 import {useNavigate} from "react-router-dom";
-// eslint-disable-next-line react/prop-types
+
+
+
 function SideBar({ onSearch }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate()
 
     const handleLogout = () => {
@@ -43,22 +44,7 @@ function SideBar({ onSearch }) {
                 </div>
 
                 <ul className="space-y-4 px-2">
-                    <div className="flex items-center p-4 rounded-md">
-                        <div className="relative flex-1">
-                            <input
-                                type="text"
-                                className="w-full border border-gray-300 text-gray-600 p-2 rounded-md pl-10 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                                placeholder="Search movies..."
-                                value={searchTerm}
-                                onChange={handleSearchChange}
-                            />
-                            <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
+
                     <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
                         <span className="ml-2">Dashboard</span>
                     </li>

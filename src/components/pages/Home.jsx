@@ -5,7 +5,6 @@ import Cookies from 'js-cookie';
 import { Button } from '../UI/index.jsx';
 
 function Home() {
-    const { searchTerm = '' } = useOutletContext();
     const [filteredMovies, setFilteredMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const token = Cookies.get('token');
@@ -37,6 +36,9 @@ function Home() {
 
         fetchMovies();
     }, [token, path]);
+
+
+
 
     return (
         <div className="p-6">

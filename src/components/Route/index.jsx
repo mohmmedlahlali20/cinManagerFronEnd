@@ -1,39 +1,59 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Home, NotFound , Cinema , Firstpage } from "../pages/index.jsx";
-import { Login , Register } from "../auth/index.jsx";
+import {
+    Home,
+    NotFound,
+    Cinema,
+    Firstpage
+} from "../pages/index.jsx";
+import {
+    Login,
+    Register,
+    ResetPassword,
+    ForgotPassword
+} from "../auth/index.jsx";
+
 import Layout from "../Layouts/Layout.jsx";
+import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
     {
         element: <Layout />,
         children: [
             {
-                path: "/Home",
-                element: <Home  />,
+                path: "/home",
+                element: (
+                    <ProtectedRoute element={Home} />
+                ),
             },
-
         ],
+    },
+    {
+        path: "/cinema",
+        element: <Cinema />,
     },
     {
         path: "/login",
         element: <Login />,
     },
     {
-        path: "/Register",
-        element: <Register/>
+        path: "/forgot-password",
+        element: <ForgotPassword />,
     },
-
+    {
+        path: "/reset-password/:token",
+        element: <ResetPassword />,
+    },
+    {
+        path: "/register",
+        element: <Register />,
+    },
     {
         path: "/*",
         element: <NotFound />,
     },
     {
-      path: "/",
+        path: "/",
         element: <Firstpage />,
-    },
-    {
-        path: "/cinema",
-        element: <Cinema />,
     },
 ]);
 

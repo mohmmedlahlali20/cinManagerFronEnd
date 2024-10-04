@@ -1,11 +1,19 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination, EffectCoverflow } from 'swiper/modules';
+import {Button} from '../UI/index.jsx'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-coverflow';
+import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import Cookies from "js-cookie";
 
 const HomePage = () => {
+
+    const navigate = useNavigate();
+
+
     const logos = [
         {
             id: 1,
@@ -49,6 +57,21 @@ const HomePage = () => {
     ];
 
 
+    useEffect(() => {
+        const token = Cookies.get('token')
+        console.log('token lmli7', token)
+        if (!token) {
+            navigate('/login')
+        }
+
+    })
+    const handleButtonClick = () => {
+        navigate('/cinema');
+    };
+
+
+
+
     return (
         <div className="bg-gray-900 text-white">
 
@@ -59,9 +82,9 @@ const HomePage = () => {
                     <p className="text-lg max-w-md mx-auto">
                         Experience the latest movies in high definition with state-of-the-art sound.
                     </p>
-                    <button className="bg-red-600 hover:bg-red-700 px-8 py-3 rounded-full text-lg">
+                    <Button onClick={handleButtonClick} className="bg-red-600 hover:bg-red-700 px-8 py-3 rounded-full text-lg">
                         Book Tickets Now
-                    </button>
+                    </Button>
                 </div>
             </section>
 
@@ -118,9 +141,9 @@ const HomePage = () => {
                                 />
                                 <h3 className="text-2xl font-bold">{movie.title}</h3>
                                 <p className="mt-2 text-sm text-gray-400">{movie.description}</p>
-                                <button className="mt-4 bg-red-600 px-4 py-2 rounded-full text-sm hover:bg-red-700">
+                                <Button className="mt-4 bg-red-600 px-4 py-2 rounded-full text-sm hover:bg-red-700">
                                     Book Now
-                                </button>
+                                </Button>
                             </div>
                         ))}
                     </div>

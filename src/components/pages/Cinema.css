@@ -68,3 +68,15 @@
         animation-timing-function: ease-in;
     }
 }
+
+
+.background-section {
+    background-image: url('src/assets/image/back_3.png');
+
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    color: white;
+}

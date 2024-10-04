@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import {jwtDecode} from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '../UI/index.jsx';
 import { Link } from 'react-router-dom';
@@ -24,7 +25,20 @@ function Login() {
             const response = await axios.post(`${path}/auth/login`, { email, password });
             console.log('Logged in:', response.data);
             Cookies.set('token', response.data.token, { expires: 7 });
-            navigate('/home');
+
+            const token = Cookies.get('token');
+            if (token) {
+                const user = jwtDecode(token);
+                console.log(user);
+
+                if (user.userRole === 'admin') {
+                    navigate('/home');
+                } else if (user.userRole === 'client') {
+                    navigate('/cinema');
+                }
+            } else {
+                setError('No token found. Please try logging in again.');
+            }
         } catch (error) {
             setError(error.response?.data?.msg || 'An error occurred during login.');
         }
@@ -32,8 +46,19 @@ function Login() {
 
     useEffect(() => {
         const token = Cookies.get('token');
+
         if (token) {
-            navigate('/home');
+            try {
+                const user = jwtDecode(token);
+                if (user.userRole === 'admin') {
+                    navigate('/home');
+                } else {
+                    navigate('/cinema');
+                }
+            } catch (error) {
+                console.error("Error decoding token:", error);
+                setError('Invalid token. Please log in again.');
+            }
         }
     }, [navigate]);
 
