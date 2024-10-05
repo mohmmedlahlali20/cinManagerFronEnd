@@ -47,11 +47,13 @@ function SideBar() {
 
 
                     <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
+                        <Link to="/DashboardAdmin"  className="w-full h-full">
                         <span className="ml-2">Movies</span>
+                            </Link>
                     </li>
 
                     <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
-                        <span className="ml-2">Actors</span>
+                        <span className="ml-2">chair</span>
                     </li>
 
                     <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">

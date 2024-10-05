@@ -1,11 +1,11 @@
-import Home from "../pages/Home.jsx"
+import DashboardAdmin from "./DashboardAdmin.jsx"
 import NotFound from "./NotFound.jsx"
 import Cinema from "./Cinema.jsx";
-import Firstpage from "./Firstpage.jsx";
+import HomePage from "./Firstpage.jsx";
 
 export{
-    Home,
+    DashboardAdmin,
     NotFound,
     Cinema,
-    Firstpage
+    HomePage
 }

@@ -29,10 +29,11 @@ function Login() {
             const token = Cookies.get('token');
             if (token) {
                 const user = jwtDecode(token);
+
                 console.log(user);
 
                 if (user.userRole === 'admin') {
-                    navigate('/home');
+                    navigate('/DashboardAdmin');
                 } else if (user.userRole === 'client') {
                     navigate('/cinema');
                 }

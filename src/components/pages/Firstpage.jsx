@@ -66,7 +66,11 @@ const HomePage = () => {
 
     })
     const handleButtonClick = () => {
-        navigate('/cinema');
+        const token = Cookies.get('token')
+        console.log("toekn: " , token)
+       
+
+
     };
 
 

@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import {
-    Home,
+    DashboardAdmin,
     NotFound,
     Cinema,
-    Firstpage
+    HomePage
 } from "../pages/index.jsx";
 import {
     Login,
@@ -24,8 +24,8 @@ const router = createBrowserRouter([
         element: <Layout />,
         children: [
             {
-                path: "/home",
-                element: <Home />,
+                path: "/DashboardAdmin",
+                element: <DashboardAdmin />,
             },
             {
                 path: "/add-movies",
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/",
-        element: <Firstpage />,
+        element: <HomePage />,
     },
 ]);
 
