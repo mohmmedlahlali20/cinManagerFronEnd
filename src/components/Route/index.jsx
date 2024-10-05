@@ -13,11 +13,11 @@ import {
 } from "../auth/index.jsx";
 
 import {
-    AddMovies
+    AddMovies,
+    GetMovieById
 } from "../movies/index.jsx";
 
 import Layout from "../Layouts/Layout.jsx";
-import ProtectedRoute from "./ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
     {
@@ -25,14 +25,17 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/home",
-                element:<ProtectedRoute element={Home} />
-
+                element: <Home />,
             },
             {
                 path: "/add-movies",
-                element: <ProtectedRoute element={AddMovies}  />,
-            }
+                element: <AddMovies />,
+            },
         ],
+    },
+    {
+        path: "/GetMovie/:id",
+        element: <GetMovieById />,
     },
 
     {

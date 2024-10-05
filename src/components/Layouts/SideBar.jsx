@@ -40,8 +40,11 @@ function SideBar() {
                 <ul className="space-y-4 px-2">
 
                     <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
-                        <Link to={AddMovies}/>
+                        <Link to="/add-movies" className="w-full h-full">
+                            <span>Ajouter un film</span>
+                        </Link>
                     </li>
+
 
                     <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
                         <span className="ml-2">Movies</span>
@@ -63,7 +66,7 @@ function SideBar() {
             </div>
 
             {isOpen && (
-                <div className="fixed inset-0 bg-black opacity-50 md:hidden z-30" onClick={toggleSidebar} />
+                <div className="fixed inset-0 bg-black opacity-50 md:hidden z-30" onClick={toggleSidebar}/>
             )}
         </>
     );

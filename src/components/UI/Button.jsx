@@ -1,5 +1,4 @@
 
-// eslint-disable-next-line react/prop-types
 const Button = ({ children, onClick, type = 'button', variant = 'primary', className }) => {
     const baseStyle = "py-2 px-4 rounded transition ";
     const variantStyle = {

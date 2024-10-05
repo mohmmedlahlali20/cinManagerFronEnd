@@ -1,27 +1,29 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';  // useParams to get token from URL
 import axios from 'axios';
 
 const ResetPassword = () => {
-    const { token } = useParams();
+    const { token } = useParams();  // Extract token from URL
+
     const [newPassword, setNewPassword] = useState('');
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
+    const path = import.meta.env.VITE_EXPRESS_BACK_END;
 
     const handleResetPassword = async (e) => {
         e.preventDefault();
         setIsLoading(true);
         setError(null);
 
-        if (newPassword.length < 6) {
-            setError('Password must be at least 6 characters long.');
+        if (newPassword.length < 8) {
+            setError('Password must be at least 8 characters long.');
             setIsLoading(false);
             return;
         }
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_EXPRESS_BACK_END}/auth/reset-password/${token}`, { newPassword });
+            const response = await axios.post(`${path}/auth/reset-password/${token}`, { newPassword });
             console.log('Password reset:', response.data);
             navigate('/login');
         } catch (err) {

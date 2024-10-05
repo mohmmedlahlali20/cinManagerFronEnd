@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import Cookies from "js-cookie";
+import { Button } from "../UI/index.jsx";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import './Cinema.css';
-import Logo from "../../assets/Logo.jsx"; // Ensure this is used or remove it
-import NotFoundImage from "../../assets/404.png"; // Replace with your actual 404 image path
 
 function Cinema() {
     const [querySearch, setQuerySearch] = useState('');
@@ -37,7 +36,11 @@ function Cinema() {
                 setMovies(response.data);
                 setFilteredMovies(response.data);
             } catch (err) {
-                setError(err.message);
+                if (err.response.status === 401) {
+                    navigate('/login');
+                } else {
+                    setError(err.message);
+                }
             } finally {
                 setLoading(false);
             }
@@ -46,12 +49,17 @@ function Cinema() {
         if (token) {
             fetchMovies();
         }
-    }, [token, path]);
+    }, [token, path, navigate]);
 
     const handleLogout = () => {
         Cookies.remove('token');
         navigate('/login');
     };
+
+    const handleGetMovie = (movie) => {
+        navigate(`/GetMovie/${movie._id}`);
+    };
+    ;
 
     if (loading) {
         return (
@@ -70,8 +78,10 @@ function Cinema() {
         <div className="bg-gray-900 text-white min-h-screen">
             <section className="relative bg-teal-600">
                 <div className="flex justify-end p-5">
-                    <button onClick={handleLogout}
-                            className="w-75 h-full px-6 py-3 rounded-full bg-opacity-0 text-white hover:bg-teal-200">
+                    <Button
+                        onClick={handleLogout}
+                        className="px-6 py-3 rounded-full bg-teal-600 text-white hover:bg-teal-700 transition duration-200"
+                    >
                         <svg fill="#000000" height="1em" width="8em" version="1.1" id="Capa_1"
                              xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
                              viewBox="0 0 384.971 384.972" xmlSpace="preserve">
@@ -81,12 +91,12 @@ function Cinema() {
                                         C5.39,0.001,0,5.39,0,12.031V372.94c0,6.641,5.39,12.03,12.03,12.03h168.424c6.641,0,12.03-5.39,12.03-12.03
                                         C192.485,366.299,187.095,360.91,180.455,360.91z"/>
                                     <path d="M381.481,184.088l-83.009-84.2c-4.704-4.752-12.319-4.74-17.011,0c-4.704,4.74-4.704,12.439,0,17.179l62.558,63.46H96.279
-                                        c-6.641,0-12.03,5.438-12.03,12.151c0,6.713,5.39,12.151,12.03,12.151h247.74l-62.558,63.46c-4.704,4.752-4.704,12.439,0,17.179
+                                                  c-6.641,0-12.03,5.438-12.03,12.151c0,6.713,5.39,12.151,12.03,12.151h247.74l-62.558,63.46c-4.704,4.752-4.704,12.439,0,17.179
                                         c4.704,4.752,12.319,4.752,17.011,0l82.997-84.2C386.113,196.588,386.161,188.756,381.481,184.088z"/>
                                 </g>
                             </g>
                         </svg>
-                    </button>
+                    </Button>
                 </div>
                 <div className="container mx-auto px-4 py-16 text-center">
                     <h1 className="text-5xl font-bold mb-4 animate-fadeInUp">
@@ -135,23 +145,29 @@ function Cinema() {
                                         className="w-full h-64 object-cover"
                                     />
                                     <div className="p-4">
-                                        <h3 className="text-xl font-bold mb-2">{movie.title}</h3>
-                                        <p className="text-gray-400">{movie.description || "Description of the movie goes here."}</p>
+                                        <h3 className="text-xl font-bold mb-2">titel : {movie.title}</h3>
+                                        <p className="text-gray-400">genre : {movie.genre}</p>
+                                        <p className="text-gray-400">the date of the advertisement : {movie.year}</p>
                                     </div>
+                                    <Button
+                                        onClick={() => handleGetMovie(movie)}
+                                        className="w-50 m-2 align-baseline text-white bg-teal-600 rounded-full py-2 px-4 hover:bg-teal-700 transition duration-200"
+                                    >
+                                        Details
+                                    </Button>
                                 </div>
                             ))
                         ) : (
                             <div>
                                 <div className="flex flex-col items-center justify-center h-64 bg-gray-800 rounded-lg shadow-lg transition-transform transform hover:scale-105">
                                     <img
-                                        src={LoadingImage}
+                                        src="src/assets/404.png"
                                         alt="Loading..."
                                         className="w-24 h-24 object-cover mb-4 transition-transform transform hover:scale-125"
                                     />
                                     <h3 className="text-2xl font-bold text-white mb-2">Loading Movies...</h3>
                                 </div>
                             </div>
-
                         )}
                     </div>
                 </div>

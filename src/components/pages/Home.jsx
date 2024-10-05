@@ -55,7 +55,8 @@ function Home() {
                             <img src={movie.image || "/default-image.jpg"} alt={movie.title} className="w-full h-48 object-cover" />
                             <div className="p-4">
                                 <h3 className="text-xl font-semibold">{movie.title}</h3>
-                                <p className="text-gray-600">{movie.description}</p>
+                                <p className="text-gray-600">{movie.year}</p>
+                                <p className="text-gray-600">{movie.genre}</p>
                                 <Button className="mt-2 bg-teal-600 text-white py-2 px-4 rounded">
                                     Voir Détails
                                 </Button>

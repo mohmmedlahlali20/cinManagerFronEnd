@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from 'jwt-decode';
+import Swal from 'sweetalert2'; // Import SweetAlert
 
 function AddMovies() {
     const [formData, setFormData] = useState({
@@ -28,13 +29,12 @@ function AddMovies() {
         e.preventDefault();
 
         const token = Cookies.get('token');
-        let userId; // Declare userId here
+        let userId;
 
         if (token) {
             try {
                 const user = jwtDecode(token);
-                userId = user.userId; // Assign value to userId
-                console.log(userId);
+                userId = user.userId;
             } catch (error) {
                 console.error('Failed to decode token:', error);
                 return;
@@ -48,7 +48,7 @@ function AddMovies() {
         Object.keys(formData).forEach((key) => {
             data.append(key, formData[key]);
         });
-        data.append('director', userId); // userId is now accessible here
+        data.append('director', userId);
 
         try {
             const response = await axios.post(`${path}/movies/create-movies`, data, {
@@ -58,7 +58,15 @@ function AddMovies() {
                 },
             });
 
-            console.log('Film added:', response.data);
+            // Show success alert
+            Swal.fire({
+                title: 'Film Added!',
+                text: 'The film has been successfully added.',
+                icon: 'success',
+                confirmButtonText: 'OK',
+            });
+
+            // Reset form fields
             setFormData({
                 title: '',
                 description: '',
@@ -67,7 +75,17 @@ function AddMovies() {
                 rating: '',
                 image: null,
             });
+
+            console.log('Film added:', response.data);
         } catch (error) {
+            // Show error alert
+            Swal.fire({
+                title: 'Error!',
+                text: error.response ? error.response.data.msg : error.message,
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+
             console.error('Error adding film:', error.response ? error.response.data : error.message);
         }
     };

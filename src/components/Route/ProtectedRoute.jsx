@@ -1,8 +1,8 @@
 import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 
-const ProtectedRoute = ({ element: Component }) => {
+const ProtectedRoute = ({ children }) => {
     const token = Cookies.get('token');
 
     if (!token) {
@@ -11,9 +11,8 @@ const ProtectedRoute = ({ element: Component }) => {
 
     try {
         const user = jwtDecode(token);
-        console.log(user.userRole)
         if (user.userRole === 'admin') {
-            return <Component />;
+            return children;
         } else {
             return <Navigate to="/notFound" />;
         }
