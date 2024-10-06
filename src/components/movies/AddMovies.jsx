@@ -58,7 +58,6 @@ function AddMovies() {
                 },
             });
 
-            // Show success alert
             Swal.fire({
                 title: 'Film Added!',
                 text: 'The film has been successfully added.',
@@ -66,7 +65,6 @@ function AddMovies() {
                 confirmButtonText: 'OK',
             });
 
-            // Reset form fields
             setFormData({
                 title: '',
                 description: '',
@@ -78,7 +76,6 @@ function AddMovies() {
 
             console.log('Film added:', response.data);
         } catch (error) {
-            // Show error alert
             Swal.fire({
                 title: 'Error!',
                 text: error.response ? error.response.data.msg : error.message,
@@ -175,7 +172,6 @@ function AddMovies() {
                     />
                 </div>
 
-                {/* Submit Button */}
                 <div>
                     <button
                         type="submit"

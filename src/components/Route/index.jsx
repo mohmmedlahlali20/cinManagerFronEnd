@@ -1,10 +1,17 @@
-import { createBrowserRouter } from "react-router-dom";
+import {
+    createBrowserRouter
+} from "react-router-dom";
 import {
     DashboardAdmin,
     NotFound,
     Cinema,
     HomePage
 } from "../pages/index.jsx";
+import {
+    Addsalle,
+    Addseance ,
+    Addchair
+} from "../seance/index.jsx";
 import {
     Login,
     Register,
@@ -31,12 +38,26 @@ const router = createBrowserRouter([
                 path: "/add-movies",
                 element: <AddMovies />,
             },
+            {
+                path: "/add-salle",
+                element: <Addsalle />,
+            },
+            {
+                path: "/add-seance",
+                element: <Addseance />,
+            },
+            {
+                path: "/add-chair",
+                element: <Addchair />,
+            },
+
         ],
     },
     {
         path: "/GetMovie/:id",
         element: <GetMovieById />,
     },
+
 
     {
         path: "/cinema",

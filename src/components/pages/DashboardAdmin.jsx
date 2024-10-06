@@ -15,8 +15,6 @@ function DashboardAdmin() {
 
     const genres = ['Action', 'Drama', 'Thriller', 'Comedy', 'Fantasy'];
 
-    const navigate = useNavigate();
-
     useEffect(() => {
         const fetchMovies = async () => {
             try {
@@ -32,9 +30,15 @@ function DashboardAdmin() {
                 }
 
                 setFilteredMovies(response.data);
-                setLoading(false);
             } catch (error) {
                 console.error(error.message);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Failed to load movies. Please try again later.',
+                    confirmButtonText: 'OK',
+                });
+            } finally {
                 setLoading(false);
             }
         };
@@ -43,30 +47,43 @@ function DashboardAdmin() {
     }, [token, path]);
 
     const handleDelete = async (id) => {
-        try {
-            await axios.delete(`${path}/movies/delete-movie/${id}`, {
-                headers: {
-                    'accept': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won’t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+        });
 
-            setFilteredMovies(filteredMovies.filter((movie) => movie._id !== id));
+        if (result.isConfirmed) {
+            try {
+                await axios.delete(`${path}/movies/delete-movie/${id}`, {
+                    headers: {
+                        'accept': 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
 
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: 'Movie deleted successfully!',
-                confirmButtonText: 'OK',
-            });
-        } catch (error) {
-            console.error("Error deleting movie:", error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'Failed to delete the movie. Please try again.',
-                confirmButtonText: 'OK',
-            });
+                setFilteredMovies(prevMovies => prevMovies.filter((movie) => movie._id !== id));
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Movie deleted successfully!',
+                    confirmButtonText: 'OK',
+                });
+            } catch (error) {
+                console.error("Error deleting movie:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Failed to delete the movie. Please try again.',
+                    confirmButtonText: 'OK',
+                });
+            }
         }
     };
 
@@ -96,8 +113,11 @@ function DashboardAdmin() {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            console.log('Updated Movie Response:', response.data);
 
-            setFilteredMovies(filteredMovies.map(movie => (movie._id === selectedMovie._id ? response.data : movie)));
+            setFilteredMovies(prevMovies =>
+                prevMovies.map(movie => (movie._id === selectedMovie._id ? response.data : movie))
+            );
             setShowModal(false);
             Swal.fire({
                 icon: 'success',
@@ -141,7 +161,6 @@ function DashboardAdmin() {
                                     <Button onClick={() => handleDelete(movie._id)} variant="danger">
                                         Delete
                                     </Button>
-                                    &nbsp;
                                     <Button onClick={() => handleEdit(movie)} variant="primary">
                                         Edit
                                     </Button>
@@ -219,7 +238,6 @@ function DashboardAdmin() {
                             <Button onClick={handleUpdate} variant="primary">
                                 Update
                             </Button>
-                            &nbsp;
                             <Button onClick={() => setShowModal(false)} variant="secondary">
                                 Cancel
                             </Button>

@@ -41,20 +41,29 @@ function SideBar() {
 
                     <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
                         <Link to="/add-movies" className="w-full h-full">
-                            <span>Ajouter un film</span>
+                            <span className="ml-2">Films</span>
                         </Link>
                     </li>
 
 
                     <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
-                        <Link to="/DashboardAdmin"  className="w-full h-full">
-                        <span className="ml-2">Movies</span>
+                        <Link to="/add-salle"  className="w-full h-full">
+                        <span className="ml-2">Salles</span>
                             </Link>
                     </li>
 
                     <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
-                        <span className="ml-2">chair</span>
+                        <Link to="/add-seance"  className="w-full h-full">
+                        <span className="ml-2">Seances</span>
+                            </Link>
                     </li>
+                    <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
+                        <Link to="/add-chair"  className="w-full h-full">
+                        <span className="ml-2">Chair</span>
+                            </Link>
+                    </li>
+
+
 
                     <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
                         <button
