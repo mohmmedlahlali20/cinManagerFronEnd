@@ -9,13 +9,11 @@ function Addsalle() {
     const [capacite, setCapacite] = useState('0');
     const [typeSalle, setTypeSalle] = useState('Standard')
     const token = Cookies.get('token');
-    const salleTypes = ['Standard', 'Premium', 'Lux', 'VIP'];
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         if (name === 'name') setName(value);
         if (name === 'capacite') setCapacite(value);
-        if (name === 'typeSalle') setTypeSalle(value)
     };
 
     const handleSubmit = async (e) => {
@@ -24,7 +22,6 @@ function Addsalle() {
             const response = await axios.post(`${path}/salles/create-salle`, {
                 name,
                 capacite,
-                typeSalle
             }, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -68,20 +65,7 @@ function Addsalle() {
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
                         />
                     </div>
-                    <div className="mb-4">
-                        <label htmlFor="typeSalle" className="block text-sm font-medium text-gray-700">Salle Type:</label>
-                        <select
-                            name="typeSalle"
-                            id="typeSalle"
-                            value={typeSalle}
-                            onChange={handleInputChange}
-                            className="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-600 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
-                        >
-                            {salleTypes.map((type, index) => (
-                                <option key={index} value={type}>{type}</option>
-                            ))}
-                        </select>
-                    </div>
+
                     <Button type="submit" className="w-full mt-4 bg-teal-600 text-white font-semibold py-2 rounded-md hover:bg-teal-700 transition duration-200">Add Salle</Button>
                 </form>
             </div>

@@ -65,7 +65,7 @@ function GetMovieById() {
                 <div className="bg-white shadow-lg rounded-lg p-6">
                     <div className="grid grid-cols-1 md:grid-cols-10 gap-4">
                         <div className="md:col-span-3 p-4">
-                            <img src={movie.image} alt={movie.title} className="w-full h-full object-cover rounded-lg" />
+                            <img src={movie.image} alt={movie.title} className="w-full h-full object-cover rounded-lg"/>
                         </div>
 
                         <div className="md:col-span-7 p-4 text-gray-950">
@@ -73,11 +73,37 @@ function GetMovieById() {
                             <p className="text-gray-950">{movie.description}</p>
                             <p className="text-gray-950">Genre: <strong>{movie.genre}</strong></p>
                             <p className="text-gray-950">Year: <strong>{movie.year}</strong></p>
-                            <p className="text-gray-950">Rating: <strong className="text-red-500">{movie.rating}/10</strong></p>
+                            <p className="text-gray-950">Rating: <strong
+                                className="text-red-500">{movie.rating}/10</strong></p>
                             <p className="">Director: <strong>{movie.director.username}</strong></p>
-                            <div className="flex justify-end">
-                                <Button>Reserve une seance</Button>
-                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="container mx-auto px-4 py-8 ">
+                <div>
+                    <h1 className="text-3xl font-bold text-center m-5">seance du film
+                        <span className="text-3xl">{movie.title}</span>
+                    </h1>
+
+                </div>
+
+                <div className="bg-white shadow-lg rounded-lg p-6">
+                    <div className="grid grid-cols-1 md:grid-cols-10 gap-4">
+                        <div className="md:col-span-3 p-4">
+                            <img src={movie.image} alt={movie.title} className="w-full h-full object-cover rounded-lg"/>
+                        </div>
+
+                        <div className="md:col-span-7 p-4 text-gray-950">
+                            <h2 className="text-3xl font-bold text-gray-950 text-center m-2">{movie.title}</h2>
+                            <p className="text-gray-950">{movie.description}</p>
+                            <p className="text-gray-950">Genre: <strong>{movie.genre}</strong></p>
+                            <p className="text-gray-950">Year: <strong>{movie.year}</strong></p>
+                            <p className="text-gray-950">Rating: <strong
+                                className="text-red-500">{movie.rating}/10</strong></p>
+                            <p className="">Director: <strong>{movie.director.username}</strong></p>
+
                         </div>
                     </div>
                 </div>

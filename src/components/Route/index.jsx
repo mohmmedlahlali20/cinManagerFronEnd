@@ -10,7 +10,7 @@ import {
 import {
     Addsalle,
     Addseance ,
-    Addchair
+
 } from "../seance/index.jsx";
 import {
     Login,
@@ -46,10 +46,7 @@ const router = createBrowserRouter([
                 path: "/add-seance",
                 element: <Addseance />,
             },
-            {
-                path: "/add-chair",
-                element: <Addchair />,
-            },
+
 
         ],
     },

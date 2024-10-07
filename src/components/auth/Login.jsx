@@ -8,6 +8,7 @@ import axios from 'axios';
 
 function Login() {
     const path = import.meta.env.VITE_EXPRESS_BACK_END;
+    console.log(path)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
@@ -19,12 +20,13 @@ function Login() {
         if (e.target.name === 'password') setPassword(e.target.value);
     };
 
+
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post(`${path}/auth/login`, { email, password });
             console.log('Logged in:', response.data);
-            Cookies.set('token', response.data.token, { expires: 7 });
+            Cookies.set('token', response.data.token);
 
             const token = Cookies.get('token');
             if (token) {
