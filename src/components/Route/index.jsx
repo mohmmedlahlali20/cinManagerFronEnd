@@ -10,13 +10,15 @@ import {
 import {
     Addsalle,
     Addseance ,
+    GetAllSeance
 
 } from "../seance/index.jsx";
 import {
     Login,
     Register,
     ResetPassword,
-    ForgotPassword
+    ForgotPassword,
+    Profile
 } from "../auth/index.jsx";
 
 import {
@@ -46,6 +48,11 @@ const router = createBrowserRouter([
                 path: "/add-seance",
                 element: <Addseance />,
             },
+            {
+                path: "/getAllSeance",
+                element: <GetAllSeance />,
+
+            }
 
 
         ],
@@ -53,6 +60,10 @@ const router = createBrowserRouter([
     {
         path: "/GetMovie/:id",
         element: <GetMovieById />,
+    },
+    {
+        path: "/me",
+        element: <Profile />,
     },
 
 

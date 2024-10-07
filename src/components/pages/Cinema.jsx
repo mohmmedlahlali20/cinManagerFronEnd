@@ -100,6 +100,9 @@ function Cinema() {
                             </g>
                         </svg>
                     </Button>
+                    <div className="  ">
+                        <h1 className="text-2xl font-bold">Profile</h1>
+                    </div>
                 </div>
                 <div className="container mx-auto px-4 py-16 text-center">
                     <h1 className="text-5xl font-bold mb-4 animate-fadeInUp">

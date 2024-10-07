@@ -68,6 +68,7 @@ const HomePage = () => {
     const handleButtonClick = () => {
         const token = Cookies.get('token')
         console.log("toekn: " , token)
+        navigate('/cinema')
        
 
 

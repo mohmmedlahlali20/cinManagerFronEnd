@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Cookies from 'js-cookie';
 import {Link, useNavigate} from "react-router-dom";
-import {AddMovies} from "../movies/index.jsx";
 
 
 
@@ -58,8 +57,8 @@ function SideBar() {
                             </Link>
                     </li>
                     <li className="p-2 hover:bg-teal-500 rounded-md cursor-pointer flex items-center transition-colors">
-                        <Link to="/add-chair"  className="w-full h-full">
-                        <span className="ml-2">Chair</span>
+                        <Link to="/getAllSeance"  className="w-full h-full">
+                        <span className="ml-2">tous les Seance</span>
                             </Link>
                     </li>
 
