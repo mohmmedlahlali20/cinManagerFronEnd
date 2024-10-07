@@ -13,7 +13,8 @@ function Addseance() {
         filmId: '',
         salleId: '',
         price: '',
-        date: ''
+        date: '' ,
+        heur : '',
     });
     const [error, setError] = useState('');
 
@@ -82,7 +83,7 @@ function Addseance() {
                     <select
                         className="block w-full p-2 border rounded"
                         value={formData.filmId}
-                        onChange={(e) => setFormData({ ...formData, filmId: e.target.value })}
+                        onChange={(e) => setFormData({...formData, filmId: e.target.value})}
                         required
                     >
                         <option value="">Sélectionner un film</option>
@@ -100,7 +101,7 @@ function Addseance() {
                     <select
                         className="block w-full p-2 border rounded"
                         value={formData.salleId}
-                        onChange={(e) => setFormData({ ...formData, salleId: e.target.value })}
+                        onChange={(e) => setFormData({...formData, salleId: e.target.value})}
                         required
                     >
                         <option value="">Sélectionner une salle</option>
@@ -119,7 +120,7 @@ function Addseance() {
                         type="number"
                         name="price"
                         value={formData.price}
-                        onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                        onChange={(e) => setFormData({...formData, price: e.target.value})}
                         required
                     />
                 </div>
@@ -131,8 +132,20 @@ function Addseance() {
                         type="date"
                         name="date"
                         value={formData.date}
-                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                        onChange={(e) => setFormData({...formData, date: e.target.value})}
                         required
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700" htmlFor="heur">Heure</label>
+                    <Input
+                        type="time"
+                        name="heur"
+                        id="heur"
+                        value={formData.heur}
+                        onChange={(e) => setFormData({...formData, heur: e.target.value})}
+                        required
+                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" // Ajout de styles
                     />
                 </div>
 

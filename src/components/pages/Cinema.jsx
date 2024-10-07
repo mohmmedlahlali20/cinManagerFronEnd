@@ -51,6 +51,9 @@ function Cinema() {
         }
     }, [token, path, navigate]);
 
+
+
+
     const handleLogout = () => {
         Cookies.remove('token');
         navigate('/login');
@@ -173,6 +176,17 @@ function Cinema() {
                 </div>
             </section>
         </div>
+
+        //pop up chaise
+
+
+
+
+
+
+
+
+
     );
 }
 
