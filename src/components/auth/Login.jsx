@@ -8,7 +8,6 @@ import axios from 'axios';
 
 function Login() {
     const path = import.meta.env.VITE_EXPRESS_BACK_END;
-    console.log(path)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);

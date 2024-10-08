@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 
 function Profile() {
     const [userDetails, setUserDetails] = useState(null);
@@ -14,7 +14,7 @@ function Profile() {
 
     const getProfile = async () => {
         try {
-            const response = await axios.get(`${path}/auth/me/${user.userId}`, {
+            const response = await axios.get(`${path}/auth/me/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
@@ -41,9 +41,9 @@ function Profile() {
             <h1>Profil Utilisateur</h1>
             {userDetails ? (
                 <div>
-                    <p><strong>Nom:</strong> {userDetails.name}</p>
+                    <p><strong>Nom:</strong> {userDetails.username}</p>
                     <p><strong>Email:</strong> {userDetails.email}</p>
-                    <p><strong>ID:</strong> {userDetails._id}</p>
+                    <p><strong>ID:</strong> {userDetails.role}</p>
                 </div>
             ) : (
                 <p>Aucun utilisateur trouvé</p>
