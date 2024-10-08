@@ -57,8 +57,9 @@ function GetMovieById() {
         }
     }, [id, path, token]);
 
-    const getChairsBySalleId = async (salleId, seanceId) => {
-        setSelectedSeanceId(seanceId); // Set the selected seance id here
+    const getChairsBySalleId = async (salleId, seanceId ) => {
+        setSelectedSeanceId(seanceId);
+
         setLoadingChairs(true);
         try {
             const response = await axios.get(`${path}/chairs/get/${salleId}`, {
@@ -79,6 +80,7 @@ function GetMovieById() {
     };
 
     const handleChairClick = async (chair) => {
+        console.log('korssi' , chair.available , chair.number)
         if (chair.available) {
             const user = jwtDecode(token);
             try {

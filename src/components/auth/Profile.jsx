@@ -1,54 +1,89 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import {jwtDecode} from 'jwt-decode';
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function Profile() {
-    const [userDetails, setUserDetails] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    const path = import.meta.env.VITE_EXPRESS_BACK_END;
     const token = Cookies.get('token');
-    const user = token ? jwtDecode(token) : null;
+    const [reservations, setReservations] = useState([]);
+    const path = import.meta.env.VITE_EXPRESS_BACK_END;
 
-    const getProfile = async () => {
-        try {
-            const response = await axios.get(`${path}/auth/me/${id}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-            setUserDetails(response.data);
-            setLoading(false);
-        } catch (err) {
-            setError(err.response?.data?.msg || 'An error occurred');
-            setLoading(false);
-        }
-    };
+    if (!token) {
+        return <p className="text-center text-red-500">No token found. Please log in.</p>;
+    }
+
+    const decodedToken = jwtDecode(token);
+    const { userId, username, email } = decodedToken.user;
 
     useEffect(() => {
-        if (user && user.userId) {
-            getProfile();
-        }
-    }, [user]);
+        const fetchReservations = async () => {
+            try {
+                const response = await axios.get(`${path}/reservations/rese_user/${userId}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                });
+                setReservations(response.data);
+            } catch (error) {
+                console.error("Error fetching reservations:", error);
+            }
+        };
 
-    if (loading) return <p>Enlargement du profile...</p>;
-    if (error) return <p>{error}</p>;
+        fetchReservations();
+    }, [path, userId, token]);
 
     return (
-        <div>
-            <h1>Profil Utilisateur</h1>
-            {userDetails ? (
-                <div>
-                    <p><strong>Nom:</strong> {userDetails.username}</p>
-                    <p><strong>Email:</strong> {userDetails.email}</p>
-                    <p><strong>ID:</strong> {userDetails.role}</p>
+        <main className="flex items-center justify-center min-h-screen bg-gray-100">
+            <div className="container mx-auto px-4">
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg overflow-hidden">
+                    <div className="px-6 py-8 bg-gradient-to-r from-blue-500 to-indigo-600">
+                        <div className="flex flex-wrap justify-center">
+                            <div className="w-full lg:w-3/12 px-4 flex justify-center m-8">
+                                <div className="relative">
+                                    <img
+                                        alt="Profile"
+                                        src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
+                                        className="shadow-xl rounded-full h-auto align-middle border-none max-w-[150px]"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="text-center text-white">
+                            <h3 className="text-4xl font-semibold leading-normal mb-2">{username}</h3>
+                            <div className="mb-2 flex justify-center items-center">
+                                <i className="fas fa-envelope mr-2 text-lg"></i>
+                                <span>{email}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="px-6 py-4">
+                        <h2 className="text-2xl font-bold text-gray-800 mb-4">Mes Réservations</h2>
+                        {reservations.length > 0 ? (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                                {reservations.map(reservation => (
+                                    <div key={reservation._id}
+                                         className="bg-white shadow-md rounded-lg p-4 transition-transform transform hover:scale-105">
+                                        <p className="text-gray-700"><strong>Date de la réservation:</strong> {new Date(reservation.date).toLocaleString()}</p>
+                                        <p className="text-gray-700">
+                                            <strong>Film:</strong> {reservation.seanceId.filmId.title}</p>
+                                        <p className="text-gray-700">
+                                            <strong>Salle:</strong> {reservation.seanceId.salleId.name}</p>
+                                        <p className="text-gray-700"><strong>Prix:</strong> {reservation.seanceId.price} MAD
+                                        </p>
+                                        <p className={`text-gray-700 ${reservation.isDeleted ? 'text-red-600' : 'text-green-600'}`}>
+                                            <strong>Statut:</strong> {reservation.isDeleted ? "Annulée" : "Active"}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p className="text-gray-700">Aucune réservation trouvée.</p>
+                        )}
+                    </div>
                 </div>
-            ) : (
-                <p>Aucun utilisateur trouvé</p>
-            )}
-        </div>
+            </div>
+        </main>
     );
 }
 
